@@ -1,47 +1,47 @@
-const text = [
-    "IT Undergraduate",
-    "Web Developer"
+const words = [
+"IT Undergraduate",
+"Web Developer",
 ];
 
-let count = 0;
-let index = 0;
-let currentText = "";
-let letter = "";
+let i = 0;
+let j = 0;
+let currentWord = "";
+let isDeleting = false;
 
-(function type(){
+function typeEffect(){
 
-    if(count === text.length){
-        count = 0;
-    }
+currentWord = words[i];
 
-    currentText = text[count];
+if(!isDeleting){
+j++;
+}else{
+j--;
+}
 
-    letter = currentText.slice(0, ++index);
+document.getElementById("typing").textContent =
+currentWord.substring(0,j);
 
-    document.getElementById("typing").textContent = letter;
+if(!isDeleting && j === currentWord.length){
 
-    if(letter.length === currentText.length){
+isDeleting = true;
 
-        count++;
-        index = 0;
+setTimeout(typeEffect,1000);
 
-        setTimeout(type,1000);
+return;
+}
 
-    }else{
+if(isDeleting && j === 0){
 
-        setTimeout(type,100);
+isDeleting = false;
 
-    }
+i++;
 
-})();
+if(i === words.length){
+i = 0;
+}
+}
 
-const topBtn = document.getElementById("topBtn");
+setTimeout(typeEffect,120);
+}
 
-topBtn.addEventListener("click", () => {
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-});
+typeEffect();
