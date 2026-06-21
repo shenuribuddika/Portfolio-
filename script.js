@@ -1,47 +1,42 @@
 const words = [
-"IT Undergraduate",
-"Web Developer",
+    "IT Undergraduate",
+    "Web Developer"
 ];
 
-let i = 0;
-let j = 0;
-let currentWord = "";
-let isDeleting = false;
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
 
-function typeEffect(){
+function typeEffect() {
 
-currentWord = words[i];
+    const currentWord = words[wordIndex];
 
-if(!isDeleting){
-j++;
-}else{
-j--;
-}
+    if (!deleting) {
+        charIndex++;
+    } else {
+        charIndex--;
+    }
 
-document.getElementById("typing").textContent =
-currentWord.substring(0,j);
+    document.getElementById("typing").textContent =
+        currentWord.substring(0, charIndex);
 
-if(!isDeleting && j === currentWord.length){
+    if (!deleting && charIndex === currentWord.length) {
+        deleting = true;
+        setTimeout(typeEffect, 1200);
+        return;
+    }
 
-isDeleting = true;
+    if (deleting && charIndex === 0) {
+        deleting = false;
+        wordIndex++;
 
-setTimeout(typeEffect,1000);
+        if (wordIndex === words.length) {
+            wordIndex = 0;
+        }
+    }
 
-return;
-}
-
-if(isDeleting && j === 0){
-
-isDeleting = false;
-
-i++;
-
-if(i === words.length){
-i = 0;
-}
-}
-
-setTimeout(typeEffect,120);
+    setTimeout(typeEffect, deleting ? 70 : 120);
 }
 
 typeEffect();
+
