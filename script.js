@@ -7,36 +7,40 @@ let wordIndex = 0;
 let charIndex = 0;
 let deleting = false;
 
-function typeEffect() {
+function typeEffect(){
 
     const currentWord = words[wordIndex];
 
-    if (!deleting) {
+    if(!deleting){
         charIndex++;
-    } else {
+    }else{
         charIndex--;
     }
 
     document.getElementById("typing").textContent =
-        currentWord.substring(0, charIndex);
+        currentWord.substring(0,charIndex);
 
-    if (!deleting && charIndex === currentWord.length) {
+    if(!deleting && charIndex === currentWord.length){
+
         deleting = true;
-        setTimeout(typeEffect, 1200);
+
+        setTimeout(typeEffect,1200);
+
         return;
     }
 
-    if (deleting && charIndex === 0) {
+    if(deleting && charIndex === 0){
+
         deleting = false;
+
         wordIndex++;
 
-        if (wordIndex === words.length) {
+        if(wordIndex === words.length){
             wordIndex = 0;
         }
     }
 
-    setTimeout(typeEffect, deleting ? 70 : 120);
+    setTimeout(typeEffect,deleting ? 70 : 120);
 }
 
 typeEffect();
-
